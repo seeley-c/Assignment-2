@@ -1,8 +1,8 @@
 /* **********************************************************
  * Programmer:	C. Seeley
- * Class:		CS30S
+ * Class:       CS30S
  * 
- * Assignment:	
+ * Assignment:	Assignment 2
  *
  * Description:	
  *
@@ -31,6 +31,7 @@
             private int sec = 0;
             private int Races = 0;
             private int timeSec[] = new int[MAX];
+            private double speed[] = new double[MAX];
             private String delim = "[ ]+";
             
      
@@ -79,7 +80,7 @@
             *         
             * Interface:
             *     in:         string of times
-            *     out:        average time (int)
+            *     out:        average time 
             ********************************************************/ 
             public int avgTime() {
                 int avgTime = 0;
@@ -92,7 +93,9 @@
                 avgTime = totalSec / Races;
                 
                 
-                System.out.println(avgTime/60 + avgTime%60);
+                System.out.print("Average time: " + (avgTime/secInMin) 
+                        + ":");
+                System.out.format( (avgTime%secInMin) + "\n");
                 
                 return avgTime;
             }
@@ -107,10 +110,19 @@
             *     in:         times
             *     out:        average speed (int)
             ********************************************************/ 
-            public int avgSpeed() {
-                int avgSpeed = 0;
+            public double avgSpeed() {
+                double avgSpeed = 0;
+                double totalSpeed = 0;
                 
+                for (int n = 0; n < Races; n++) {
+                    totalSpeed += speed[n];
+                }
                 
+                avgSpeed = totalSpeed / Races;
+                
+                System.out.print("Average speed: ");
+                System.out.format("%.2f", avgSpeed);
+                System.out.println("Km/h\n");
                 
                 return avgSpeed;
             }
@@ -123,10 +135,12 @@
             *     in:         time of race
             *     out:        speed of skater in race
             ********************************************************/ 
-            public double singleSpeed(double n) {
+            public double singleSpeed(double n, int j) {
                 double singleSpeed = 0;
                 
                 singleSpeed = distance/n * MPStoKMPH;
+                
+                speed[j] = singleSpeed;
                 
                 return singleSpeed;
             }

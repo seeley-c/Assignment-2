@@ -1,6 +1,6 @@
 /********************************************************************
  * Programmer:	C. Seeley
- * Class:  CS30S
+ * Class:       CS30S
  *
  * Assignment: Assignment 2
  * Program Name:  A2Client.java
@@ -26,7 +26,8 @@ public class A2Client {  // begin class
     
     // ********* declaration of constants **********
     
-        int MAX = 10;
+        final int MAX = 10;
+        final int OFFSET = 1;
     
     // ********** declaration of variables **********
     	
@@ -35,9 +36,10 @@ public class A2Client {  // begin class
         String input[] = null;
         int n = 0;
         int timesInt[] = new int[MAX];
-        double averageTime = 0;
+        int averageTime = 0;
         double singleSpeed = 0;
         int singleTime = 0;
+        double averageSpeed = 0;
         
         
     	
@@ -72,17 +74,21 @@ public class A2Client {  // begin class
             for(int i = 0; i < input.length; i++){
                 timesInt[n] = skater.singleTime(input[i], j);
                 
-                singleSpeed = skater.singleSpeed(timesInt[n]);
+                singleSpeed = skater.singleSpeed(timesInt[n], j);
                 
                 
-                System.out.println("Time: " + input[i]);
+                System.out.println("Race " + (i + OFFSET) + " time: " + input[i]);
                 //System.out.println("Time: " + timesInt[n]);
-                System.out.format("%.2f", singleSpeed );
-                System.out.println("Km/h\n");
+                
+                System.out.print("Average race " + (i + OFFSET) + " speed: ");
+                System.out.format("%.2f", singleSpeed);
+                System.out.println("Km/h");
+                
                 j++;
             } // end for tokens
             
             averageTime = skater.avgTime();
+            averageSpeed = skater.avgSpeed();
             //System.out.println(averageTime + "\n");
             
           //System.out.println(strin);
