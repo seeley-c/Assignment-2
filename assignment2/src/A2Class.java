@@ -62,6 +62,13 @@ import javax.swing.JOptionPane;
             
  	// ********** accessors **********
             
+            /********************************************************
+            * Purpose:        get the ID for the skater object
+            *         
+            * Interface:
+            *     in:         int n for incrementing ID
+            *     out:        ID for skater object
+            ********************************************************/
             public int getID (int n) {
                 int ID = 1000 + n;
                 return ID;
