@@ -28,10 +28,13 @@ public class A2Client {  // begin class
     
         final int MAX = 10;
         final int OFFSET = 1;
+        final int SENTVAL = -1;
+        final int secInMin = 60;
     
     // ********** declaration of variables **********
     	
     	String delim = "[ ]+";		// delimiter string for splitting input string
+        String delim2 = "[;]+";
         String strin = "";
         String input[] = null;
         int n = 0;
@@ -40,6 +43,9 @@ public class A2Client {  // begin class
         double singleSpeed = 0;
         int singleTime = 0;
         double averageSpeed = 0;
+        String chanLine = "";
+        int chan = 0;
+        int races = 0;
         
         
     	
@@ -66,26 +72,46 @@ public class A2Client {  // begin class
         strin = fin.readLine();
         
         while(strin != null){
+            chan = 0;
             int j = 0;
             input = strin.split(delim);
             
+            races = input.length;
+            
             A2Class skater = new A2Class(n, input);
           
-            for(int i = 0; i < input.length; i++){
+            for(int i = 0; i < races; i++){
                 timesInt[n] = skater.singleTime(input[i], j);
-                
                 singleSpeed = skater.singleSpeed(timesInt[n], j);
                 
-                
                 System.out.println("Race " + (i + OFFSET) + " time: " + input[i]);
-                //System.out.println("Time: " + timesInt[n]);
-                
                 System.out.print("Average race " + (i + OFFSET) + " speed: ");
                 System.out.format("%.2f", singleSpeed);
                 System.out.println("Km/h");
+                //System.out.println("Time: " + timesInt[n]);
+                
                 
                 j++;
             } // end for tokens
+            
+            while (chan != SENTVAL) {
+                
+                chan = Integer.parseInt(JOptionPane.showInputDialog(
+                 "Enter any number to change a time\nOr enter -1 to exit"));
+                
+                if (chan == SENTVAL) {
+                    break;
+                }//end if statement
+                
+                System.out.println(skater.changeTime());
+                singleSpeed = skater.singleSpeed(timesInt[races - OFFSET], (races - OFFSET));
+                
+                
+                System.out.format("%.2f", singleSpeed);
+                System.out.println("Km/h");
+                } //end while loop
+            
+            
             
             averageTime = skater.avgTime();
             averageSpeed = skater.avgSpeed();

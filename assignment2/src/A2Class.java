@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /* **********************************************************
  * Programmer:	C. Seeley
  * Class:       CS30S
@@ -22,6 +25,7 @@
             private final int secInMin = 60;
             private final int distance = 5000;
             private final double MPStoKMPH = 3.6;
+            private final int OFFSET = 1;
             
  	
  	// ********** instance variable **********
@@ -149,5 +153,51 @@
             
             
  	// ********** mutators **********
+            
+            public int changeTime(){
+                int time = 0;
+                String chanTo = "";
+                int chanMin = 0;
+                int chanSec = 0;
+                int chanTotSec = 0;
+                
+                
+                
+                chanTo = JOptionPane.showInputDialog(
+                        "What time do you want to add (ex: 7:15)");
+                
+                String[] chan = chanTo.split("[:]+");
+                
+                chanMin = Integer.parseInt(chan[0]);
+                chanSec = Integer.parseInt(chan[1]);
+                chanTotSec = (chanMin * secInMin) + chanSec;
+                
+                if (Races < 10){ 
+                    timeSec[Races] = chanTotSec;
+                    
+                    System.out.println("You have changed race time " 
+                        + (Races + OFFSET) + " to " 
+                        + (timeSec[Races]/secInMin) + ":" 
+                        + (timeSec[Races]%secInMin));
+                    
+                    System.out.print("Average race " + (Races + OFFSET) + " speed: ");
+                }//end if
+                
+                else {
+                    for (int n = 1; n < Races; n++) {
+                        timeSec[(Races - OFFSET) - n] = timeSec[Races - OFFSET];
+                    }
+                    timeSec[Races - OFFSET] = chanTotSec;
+                    
+                    System.out.println("You have changed race time " 
+                        + (Races) + " to " 
+                        + (timeSec[Races-OFFSET]/secInMin) + ":" 
+                        + (timeSec[Races-OFFSET]%secInMin));
+                    
+                    System.out.print("Average race " + Races + " speed: ");
+                }//end else
+                
+                return time;
+            }
  
  }  // end class
