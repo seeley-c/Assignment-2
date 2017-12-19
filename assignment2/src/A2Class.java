@@ -7,7 +7,9 @@ import javax.swing.JOptionPane;
  * 
  * Assignment:	Assignment 2
  *
- * Description:	
+ * Description:	calculate the average time and speed, and race 
+                times and speeds, and change race time of a 
+                skater object
  *
  * 
  * *************************************************************
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
             private final int distance = 5000;
             private final double MPStoKMPH = 3.6;
             private final int OFFSET = 1;
+            
             
  	
  	// ********** instance variable **********
@@ -50,7 +53,7 @@ import javax.swing.JOptionPane;
             ********************************************************/ 
             
             public A2Class(int n, String input[]) {
-                id = id + n;
+                id = this.getID(n);
                 System.out.println("Skater: " + id);
                 
                 
@@ -58,6 +61,12 @@ import javax.swing.JOptionPane;
             }
             
  	// ********** accessors **********
+            
+            public int getID (int n) {
+                int ID = 1000 + n;
+                return ID;
+            }
+            
             
             /********************************************************
             * Purpose:        parse the time of the skater
@@ -112,11 +121,13 @@ import javax.swing.JOptionPane;
             *         
             * Interface:
             *     in:         times
-            *     out:        average speed (int)
+            *     out:        average speed (double)
             ********************************************************/ 
             public double avgSpeed() {
                 double avgSpeed = 0;
                 double totalSpeed = 0;
+                
+                
                 
                 for (int n = 0; n < Races; n++) {
                     totalSpeed += speed[n];
@@ -137,7 +148,7 @@ import javax.swing.JOptionPane;
             *         
             * Interface:
             *     in:         time of race
-            *     out:        speed of skater in race
+            *     out:        speed of skater in race (double)
             ********************************************************/ 
             public double singleSpeed(double n, int j) {
                 double singleSpeed = 0;
@@ -155,12 +166,10 @@ import javax.swing.JOptionPane;
  	// ********** mutators **********
             
             public int changeTime(){
-                int time = 0;
                 String chanTo = "";
                 int chanMin = 0;
                 int chanSec = 0;
                 int chanTotSec = 0;
-                
                 
                 
                 chanTo = JOptionPane.showInputDialog(
@@ -175,12 +184,17 @@ import javax.swing.JOptionPane;
                 if (Races < 10){ 
                     timeSec[Races] = chanTotSec;
                     
-                    System.out.println("You have changed race time " 
-                        + (Races + OFFSET) + " to " 
-                        + (timeSec[Races]/secInMin) + ":" 
-                        + (timeSec[Races]%secInMin));
+                    min = timeSec[Races] / secInMin;
+                    sec = timeSec[Races] % secInMin;
+                    
+                    System.out.print("You have changed race time " 
+                        + (Races + OFFSET) + " to " );
+                    System.out.format("%2s", (timeSec[Races]/secInMin) + ":"); 
+                    System.out.format("%2s", (timeSec[Races]%secInMin) + "\n");
                     
                     System.out.print("Average race " + (Races + OFFSET) + " speed: ");
+                    
+                    Races = Races + OFFSET;
                 }//end if
                 
                 else {
@@ -189,15 +203,20 @@ import javax.swing.JOptionPane;
                     }
                     timeSec[Races - OFFSET] = chanTotSec;
                     
-                    System.out.println("You have changed race time " 
-                        + (Races) + " to " 
-                        + (timeSec[Races-OFFSET]/secInMin) + ":" 
-                        + (timeSec[Races-OFFSET]%secInMin));
+                    min = timeSec[Races-OFFSET] / secInMin;
+                    sec = timeSec[Races-OFFSET] % secInMin;
+                    
+                    System.out.print("You have changed race time " 
+                        + (Races) + " to " );
+                    System.out.format("%2s", 
+                            (timeSec[Races-OFFSET]/secInMin) + ":"); 
+                    System.out.format("%2s", 
+                            (timeSec[Races-OFFSET]%secInMin) + "\n");
                     
                     System.out.print("Average race " + Races + " speed: ");
                 }//end else
                 
-                return time;
+                return chanTotSec;
             }
  
  }  // end class

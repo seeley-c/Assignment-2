@@ -43,7 +43,7 @@ public class A2Client {  // begin class
         double singleSpeed = 0;
         int singleTime = 0;
         double averageSpeed = 0;
-        String chanLine = "";
+        int chanTime = 0;
         int chan = 0;
         int races = 0;
         
@@ -97,15 +97,20 @@ public class A2Client {  // begin class
             while (chan != SENTVAL) {
                 
                 chan = Integer.parseInt(JOptionPane.showInputDialog(
-                 "Enter any number to change a time\nOr enter -1 to exit"));
+                 "Enter any number to change a time for skater " + skater.getID(n) + "\nOr enter -1 to exit"));
                 
                 if (chan == SENTVAL) {
                     break;
                 }//end if statement
                 
-                System.out.println(skater.changeTime());
-                singleSpeed = skater.singleSpeed(timesInt[races - OFFSET], (races - OFFSET));
+                chanTime = skater.changeTime();
                 
+                if (races < MAX) {
+                    singleSpeed = skater.singleSpeed(chanTime, races);
+                }//end if
+                else {
+                    singleSpeed = skater.singleSpeed(chanTime, (races - OFFSET));
+                }
                 
                 System.out.format("%.2f", singleSpeed);
                 System.out.println("Km/h");
